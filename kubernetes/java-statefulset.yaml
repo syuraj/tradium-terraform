@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tradium-api-set
+spec:
+  selector:
+    matchLabels:
+      app: tradium-api
+  serviceName: "tradium-api"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tradium-api
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: tradiumapi
+        image: 068852463551.dkr.ecr.us-east-1.amazonaws.com/ss-eks-ecr:tradium-api-1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+
