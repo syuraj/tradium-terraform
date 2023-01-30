@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tradiumapp-set
+spec:
+  selector:
+    matchLabels:
+      app: tradiumapp
+  serviceName: "tradiumapp"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tradiumapp
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: tradiumapp
+        image: 068852463551.dkr.ecr.us-east-1.amazonaws.com/ss-eks-ecr:tradium-node-app-1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: "PORT"
+          value: "3000"
